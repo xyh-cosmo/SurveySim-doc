@@ -309,14 +309,39 @@ $\alpha / \beta$的值相比在其他范围小很多，意味着散热效率要�
 简单说就是假设$\alpha=1,\beta\simeq 1/6$。}
 
 {\kaishu
-\textbf{更新：}在发热、散热速率都恒定的假设下，可以进一步简化描述CMG转动角度与机动次数之间的关系。
-在发热、散热速率恒定的假设下，可以知道机动的次数受到转动角度的限制。其实从五院提供的数据也可以看到
-这一点（表~\ref{tab:cmg}中的3-6行），一轨时间内可以转过的总角度是有一个上限的（450\textdegree）。
+\textbf{更新(2018-10-15)：}在发热、散热速率都恒定的假设下，可以进一步简化描述CMG转动角度与
+机动次数之间的关系。从五院提供的数据可以看到（表~\ref{tab:cmg}中的3-6行），一轨时间内可以转过
+的总角度是有一个上限的（450\textdegree），这意味着一轨的时间内能够产生的热量存在一个上限，
+超过的话就没有足够的时间散掉。
 
 因为转动角度等于机动时的最大角速度乘以时间（包含了加、减速时间的改正），我们需要从相关数据中推断
 出最大角速度 $\omega_{\rm max}$，然后就可以根据所需的转动角度反推出机动时间，并得到有多少热量
 产生。为了进行加、减速的时间改正，我们还需要知道角加速度$\Omega$，以及消除机动过程中产生的机械
 振动所需的稳定时间$t_{\rm stab}$。
+
+由转动180度和45度分别需要196和581秒这两个条件可以得到
+\begin{eqnarray}
+\omega_{\rm max} = 0.35 ~ {\textdegree \rm sec^{-1}}
+\label{eq:cmg1}
+\end{eqnarray}
+以及
+\begin{eqnarray}
+\omega_{\rm max}(t_{180}-t_{\rm stab}) - \frac{\omega^2_{\rm max}}{\Omega} = 180\textdegree
+\label{eq:cmg2}
+\end{eqnarray}
+根据1\textdegree 必须在70秒内完成这个条件，并假设转动过程是加速到最大角速度之后立即开始减速的，
+可以得到如下关系：
+\begin{eqnarray}
+\Omega \left( \frac{70-t_{\rm stab}}{2} \right)^2 = 1 \textdegree
+\label{eq:cmg3}
+\end{eqnarray}
+
+由方程~\eqref{eq:cmg2}和~\eqref{eq:cmg3}可以解得角加速度和稳定时间分别为
+\begin{eqnarray}
+\Omega &=& 0.02732 ~ {\textdegree  \rm sec^{-2}}, \\
+t_{\rm stab} &=& 57.9 ~ {\rm sec}
+\end{eqnarray}
+
 }
 
 \subsection{帆板的转动}
