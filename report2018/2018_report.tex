@@ -308,10 +308,11 @@ $\alpha / \beta$的值相比在其他范围小很多，意味着散热效率要�
 \RT{\heiti 因此，如果要用这个模型来检验巡天模拟中CMG的使用情况，应该假设散热效率最低的情况，
 简单说就是假设$\alpha=1,\beta\simeq 1/6$。}
 
-{\kaishu
-\textbf{更新(2018-10-15)：}在发热、散热速率都恒定的假设下，可以进一步简化描述CMG机动次数与
+\subsubsection{CMG产热、散热的模型更新(2018-10-15)}
+
+在发热、散热速率都恒定的假设下，可以进一步简化描述CMG机动次数与
 转动角度之间的关系。从五院提供的数据可以看到（表~\ref{tab:cmg}中的3-6行），一轨时间内可以转过
-的总角度是有一个上限的（450\textdegree），这意味着一轨的时间内能够产生的热量存在一个上限，
+的总角度是有一个上限的（455\textdegree），这意味着一轨的时间内能够产生的热量存在一个上限，
 超过的话就没有足够的时间散掉。
 
 因为转动角度等于机动时的最大角速度乘以时间（包含了加、减速时间的改正），我们需要从相关数据中推断
@@ -319,7 +320,7 @@ $\alpha / \beta$的值相比在其他范围小很多，意味着散热效率要�
 产生。为了进行加、减速的时间改正，我们还需要知道角加速度$\Omega$，以及消除机动过程中产生的机械
 振动所需的稳定时间$t_{\rm stab}$。
 
-由转动180度和45度分别需要200和585秒（实际数据为196和581秒）这两个条件可以得到
+由转动180\textdegree 和45\textdegree 分别需要200和585秒（实际数据为196和581秒）这两个条件可以得到
 \begin{eqnarray}
 \omega_{\rm max} = 0.35 ~ {\textdegree \rm sec^{-1}}
 \label{eq:cmg1}
@@ -342,9 +343,9 @@ $\alpha / \beta$的值相比在其他范围小很多，意味着散热效率要�
 t_{\rm stab} &=& 57.9 ~ {\rm sec}
 \label{eq:cmg4}
 \end{eqnarray}
-由这些结果可知，加速到最大角速度所需的时间约为12.8秒，已经大于1\textdegree 机动所需的
-时间12.1秒（包括加、减速），说明1度机动时的角速度并没有加速到最大值，同时也进一步说明
-了方程~\eqref{eq:cmg3}中假设的合理性。
+由这些结果可知，加速到最大角速度所需的时间约为12.8秒，已经大于1\textdegree 机动所需的时间
+12.1秒（包括加、减速），说明1\textdegree 机动时的角速度并没有加速到最大值，同时也进一步说明
+了方程~\eqref{eq:cmg3}中假设加速后立即减速是合理的。
 
 保守一点估计，假设稳定时间$t_{\rm stab}=60$，则$\Omega=0.03267~\textdegree sec^{-2}$，
 加速到最大角速度、紧接着减速一共需要21.43秒，转过的角度大于3.75度。由此可以得到一次机动
@@ -356,43 +357,53 @@ t_{\rm tot}(\theta) = 60+21.43+\frac{\theta-3.75}{0.35}
 需要注意的是，这里的$\theta$需满足条件$\theta \ge 3.75$\textdegree 。而我们已经知道了5\textdegree
 以下的转动次数是不受限制的，因此只需要考虑大于5\textdegree 的情况。
 
-可以利用35度机动条件来保守估计一轨内实际能够机动的总时间$t^{\rm max}_{\rm slew}$。根据方程~\eqref{eq:cmg5}可知，
-35度机动的时间（不包含稳定过程的时间）为$t_{\rm slew}(\theta=35)=110.72~ secs$，那么实际允许的机动总
-时间为
+可以利用35度机动条件来保守估计一轨内实际能够机动的总时间$t^{\rm tot}_{\rm slew}$。
+根据方程~\eqref{eq:cmg5}可知，35\textdegree 机动的时间（不包含稳定过程的时间）为
+$t_{\rm slew}(\theta=35)=110.72~ secs$，那么一轨时间内允许的纯机动的总时间为
 \begin{eqnarray}
-t^{\rm max}_{\rm slew} = 13\times110.72\simeq 1439.3~secs
+t^{\rm tot}_{\rm slew} = 13\times110.72\simeq 1439.3~secs
 \end{eqnarray}
-相应的，因为一轨时间内$\theta$角大小的机动总时间不能超过$t^{\rm max}_{\rm slew}$，可以得到机动次数的限制为
+相应的，因为一轨时间内$\theta$角的纯机动总时间不能超过$t^{\rm tot}_{\rm slew}$，可以得到
+对应$\theta$角的机动次数的限制为
 \begin{eqnarray}
 N(\theta) 
-&=& \frac{t^{\rm max}_{\rm slew}}{t_{\rm tot}(\theta) -60}\\
+&=& \frac{t^{\rm tot}_{\rm slew}}{t_{\rm tot}(\theta) -60}\\
 &=& \frac{1439.3}{10.72+2.857\theta}
 \end{eqnarray}
-后期进行巡天编排模拟时，可以使用\RT{“一轨内累加的（纯）机动时间不能超过$t^{\rm max}_{\rm slew}$”}这一条件
-来限制CMG的使用。
+与五院提供的限制条件的对比见图~\ref{fig:cmg_rot1}。
+
+因为受限于机动次数，不同角度的机动在一轨时间内能够产生的热量存在一个上限，见图~\ref{fig:cmg_rot2}。
+其中蓝色点线是根据模型预测的不同角度对应的最大产热量，均小于一轨内可以散失的热量（归一化为1）。
+这进一步说明我们建立的模型是合理的。
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.525\textwidth]{figures/cmg_rot2.png}
-\caption{模型预测与5院提供的限制条件的对比。}
-%\label{fig:cmg_alpha_beta}
+\includegraphics[width=0.65\textwidth]{figures/cmg_rot2.png}
+\caption{模型预测的允许机动次数与5院提供的数据的对比。}
+\label{fig:cmg_rot1}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.525\textwidth]{figures/cmg_rot3.png}
-\caption{不同角度的机动在一轨时间内的总产热量（一轨时间内可以散掉的总热量归一化为1）。}
-%\label{fig:cmg_alpha_beta}
+\includegraphics[width=0.65\textwidth]{figures/cmg_rot3.png}
+\caption{不同角度的机动在一轨时间内的总产热量（蓝色点线）。
+简便起见，这里将一轨时间内可以散失掉的总热量归一化为1。}
+\label{fig:cmg_rot2}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.525\textwidth]{figures/cmg_rot4.png}
+\includegraphics[width=0.65\textwidth]{figures/cmg_rot4.png}
 \caption{模拟（红色）中CMG消耗的曲线和模型（蓝色）预测的对比。显然，模拟中CMG消耗的计算
 比模型预测的更为保守。}
-%\label{fig:cmg_alpha_beta}
+\label{fig:cmg_rot3}
 \end{figure}
-}
+
+图~\ref{fig:cmg_rot3}中比较了目前模拟中所采用的CMG消耗曲线和模型预测的结果。根据这个比较，
+我们可以确信的是，模拟中的限制更为保守保守一些，由此我们确信模拟结果是满足CMG限制条件约束的。
+后期进行巡天编排模拟时，可以使用\BT{“一轨内累加的（纯）机动时间不能超过$t^{\rm tot}_{\rm slew}$”}这一条件
+来充分挖掘CMG限制条件的使用。
+
 
 \subsection{帆板的转动}
 \label{sub:panel}
