@@ -1,0 +1,4 @@
+# Shutter time (1.5*2) has not been accounted for.
+
+# E19_b17_gal_center_continous_7yr_beta_15_no_dark_check
+19535  377

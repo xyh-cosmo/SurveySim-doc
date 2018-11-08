@@ -1,0 +1,4 @@
+# Shutter time (1.5*2) has not been accounted for.
+
+# 19_b17_continous_7yr_beta_15_no_dark_check.X
+18831  415

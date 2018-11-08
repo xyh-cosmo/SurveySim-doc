@@ -1,0 +1,7 @@
+# Shutter time (1.5*2) has been accounted for.
+
+# E20_b17_gal_center_continous_7yr_beta_15_cmg_err_mode
+16614  271
+
+# E20_b18_gal_center_continous_7yr_beta_15_cmg_err_mode
+16400  283
