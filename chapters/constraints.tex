@@ -1,37 +1,29 @@
 % !TEX root = ../CSS-OS.tex
 
-\chapter{限制条件}
-本章主要讨论有哪些因素会影响到望远镜的观测过程。这些因素可以大致分为三类：
-1. 光学因素, 2. 能源因素, 3. 磁场因素，以及CMG的温度限制。
+\chapter{约束}
+本章主要讨论有哪些因素会影响到望远镜的曝光过程。这些因素可以分为两大类：1）光学设施的硬件约束；
+2）天文观测条件。另外还包括南大西洋异常区对仪器的影响，轨道维持，中继卫星通信，停靠维护。
 
 \MT{有必要花一些时间对这些条件建立合理的物理模型，从而改进具体的代码实现（尽量减少判断语句的使用）。}
 
-\section{光学因素}
-
-\subsection{太阳与月球方位}
-太阳与视轴\footnote{即望远镜光学系统的光轴。}的夹角不得小于$50$\textdegree，月球与视轴的
-夹角不得小于$40$\textdegree。
-
-\subsection{地球遮挡与反照}
-地球对近地轨道望远镜观测方向有较大的影响。首先，地球所遮挡的方向无法观测。其次，地球反照光可对
-望远镜造成很高的背景噪声，大大降低观测效率。地球遮挡与反照可以统一考虑，做如下要求：望远镜观测
-方向与地球亮边夹角$\ge70$\textdegree，望远镜观测方向与地球暗边夹角$\ge30$\textdegree。
-
-\BT{是否需要进一步考虑地球大气折射的因素，并以此进一步得到更加严格的夹角的限制条件？}
 
 
-\section{能源因素}
+\section{光学设施硬件约束}
+
+\subsection{能源因素}
+
+\subsubsection{早期约束条件}
 太阳帆板与太阳的位置关系，需要考虑卫星所在的位置，当卫星所在的位置为阴影区，帆板与太阳的位置
 关系不需要考虑；当卫星所在的区域为阳照区，需要考虑帆板与太阳的位置关系，以保障能源的供应，帆板
 面的法线与太阳的夹角在[-25\textdegree，25\textdegree]之间。在此基础上还需要考虑如下
 的能源平衡条件：
 
 \begin{table}[h!]
-\renewcommand{\arraystretch}{1.75}
+\renewcommand{\arraystretch}{1.5}
 \centering
 %\begin{tabular}{|c|c|}
 \begin{tabular}{m{.45\textwidth}<{\centering}| m{.45\textwidth}<{\centering}}
-\hline
+\toprule
  {\large 初期 （条件2）} & {\large 末期 （条件1）} \\
 \hline
 阳照区帆板法线与太阳矢量夹角5\textdegree-10\textdegree 的观测姿态+转动总时间不大于48分钟 &
@@ -52,7 +44,8 @@
 阳照区非观测且非姿态机动保证法线对日 \\
 \hline
 阳照区非观测且非姿态机动保证法线对日 & \\
-\hline
+%\hline
+\bottomrule
 \end{tabular}
 \caption{能源平衡条件}
 \label{tab:energy_balance}
@@ -83,6 +76,55 @@ $15\textdegree\sim 20\textdegree$,
 
 \RT{{\heiti 一点思考：} 张鑫在这一块的处理似乎有点问题，他得到的$P_i$的值，似乎不满足初始和末期的
 一个$7\%$的差异。}
+
+\subsubsection{动态计算能源水平}
+太阳能帆板以及发电效率的相关信息见~\ref{chap_internal}的内容。
+
+\subsection{CMG温度影响}
+
+\begin{table}[h!]
+\renewcommand{\arraystretch}{1.5}
+\centering
+%\begin{tabular}{|c|c|}
+\begin{tabular}{m{.4\textwidth}<{\centering}| m{.2\textwidth}<{\centering}| m{.2\textwidth}<{\centering}}
+\toprule
+\multirow{4}{*} & 姿态机动角度（\textdegree） & 单轨允许机动次数 \\ \cline{2-3}
+				& 5-10 & 29 \\ \cline{2-3}
+				& 10-20 & 19 \\ \cline{2-3}
+				& 20-35 & 13 \\ \cline{2-3}
+CMG工况温度对机动次数的影响 & 35-45 & 10 \\ \cline{2-3}
+\multirow{4}{*} & 45-75 & 6 \\ \cline{2-3}
+				& 75-90 & 5 \\ \cline{2-3}
+				& 90-135 & 3 \\ \cline{2-3}
+				& 135-180 & 2 \\ 
+\bottomrule
+\end{tabular}
+\caption{CMG温度约束对机动角度、次数的限制。}
+\label{default}
+\end{table}
+
+\section{天文观测条件}
+
+\subsection{太阳}
+在曝光的过程中，望远镜的视轴方向与太阳方位矢量的夹角不得小于50\textdegree。
+
+\subsection{月球}
+在曝光的过程中，望远镜的视轴方向与月球方位矢量的夹角不得小于40\textdegree。该规避角（40\textdegree）是假设月球处于满月
+的时候估算出来的（需要进一步确认）。
+
+
+\subsection{地球遮挡与反照}
+地球对近地轨道望远镜观测方向有较大的影响。首先，地球所遮挡的方向无法观测。其次，地球反照光可对
+望远镜造成很高的背景噪声，大大降低观测效率。地球遮挡与反照可以统一考虑，做如下要求：望远镜观测
+方向与地球亮边夹角$\ge70$\textdegree，望远镜观测方向与地球暗边夹角$\ge30$\textdegree。
+
+\BT{是否需要进一步考虑地球大气折射的因素，并以此进一步得到更加严格的夹角的限制条件？}
+
+\subsection{黄道光}
+
+\subsection{银盘}
+包括银河系内的亮星的影响
+
 
 \section{南大西洋磁场异常区}
 南大西洋磁场异常区（SAA）为范艾伦辐射带接近地球表面的区域，大量的太阳粒子落在该区域，对于低轨飞行器有
@@ -119,25 +161,4 @@ from:~\url{https://heasarc.gsfc.nasa.gov/docs/rosat/gallery/misc_saad.html}.}
 发电装置、制冷设备等都一直在工作。
 
 
-\section{CMG温度影响}
 
-\begin{table}[h!]
-\renewcommand{\arraystretch}{1.5}
-\centering
-%\begin{tabular}{|c|c|}
-\begin{tabular}{m{.4\textwidth}<{\centering}| m{.2\textwidth}<{\centering}| m{.2\textwidth}<{\centering}}
-\hline
-\multirow{4}{*} & 姿态机动角度（\textdegree） & 单轨允许机动次数 \\ \cline{2-3}
-				& 5-10 & 29 \\ \cline{2-3}
-				& 10-20 & 19 \\ \cline{2-3}
-				& 20-35 & 13 \\ \cline{2-3}
-CMG工况温度对机动次数的影响 & 35-45 & 10 \\ \cline{2-3}
-\multirow{4}{*} & 45-75 & 6 \\ \cline{2-3}
-				& 75-90 & 5 \\ \cline{2-3}
-				& 90-135 & 3 \\ \cline{2-3}
-				& 135-180 & 2 \\ \cline{2-3}
-\hline
-\end{tabular}
-\caption{CMG温度影响}
-\label{default}
-\end{table}
